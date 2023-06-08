@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
-
+use App\Http\Controllers\Admin\TypeResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +27,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         return view('dashboard');
     })->name('dashboard');
     Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
+    Route::resource('types', TypeResource::class)->parameters(['types' => 'type:slug']);
 });
 
 

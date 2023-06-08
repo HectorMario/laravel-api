@@ -22,19 +22,31 @@
             @foreach ($projects as $project)
                 <tr>
                     <th scope="row">{{ $project->id }}</th>
+                    @if($project->title)
                     <td>{{ $project->title }}</td>
+                    @else
+                    <td>{{ $project->name }}</td>
+                    @endif
                     <td>{{ $project->slug }}</td>
                     <td class="d-flex gap-3">
                         <a href="{{ route('admin.projects.show', $project->slug) }}" class="btn btn-success">
                             <i class="fa-solid fa-eye"></i>
                         </a>
+                        @if($project->title)
                         <a href="{{ route('admin.projects.edit', $project->slug) }}" class="btn btn-warning">
-                            <i class="fa-solid fa-gear"></i>
+                         @else
+                        <a href="{{ route('admin.types.edit', $project->slug) }}" class="btn btn-warning">
+                        @endif
+                        <i class="fa-solid fa-gear"></i>
                         </a>
-                        <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
-                            @csrf
+                        @if($project->title)
+                        <form action="{{  route('admin.projects.destroy', $project->slug) }}" method="POST">
+                        @else
+                        <form action="{{  route('admin.types.destroy', $project->slug) }}" method="POST">
+                        @endif
+                        @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger deletBtn">
+                            <button type="submit" class="btn btn-danger ">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
