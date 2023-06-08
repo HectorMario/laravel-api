@@ -24,7 +24,13 @@
                     @enderror
                 </div>
 
-
+                <p>select the technologies</p>
+            <div class="btn-group" role="group" >
+            @foreach ($technologies as $technology)
+            <input type="checkbox" class="btn-check" name="technology_id[]" value="{{$technology->id}}" id="{{$technology->name}}" autocomplete="off">
+            <label class="btn btn-outline-primary" for="{{$technology->name}}">{{$technology->name}}</label>
+            @endforeach
+            </div>
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ old('description', $project->description) }}</textarea>
@@ -33,13 +39,6 @@
                 <div class="cta d-flex-gap-3">
                     <input type="submit" value="Salva" class="btn btn-primary">
                     <a class="btn btn-success" href="{{ route('admin.projects.index') }}">Annulla</a>
-                    <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger deletBtn">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </form>
                 </div>
             </form>
 

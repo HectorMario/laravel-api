@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectReqeust;
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -30,7 +31,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('technologies'));
     }
 
     /**
@@ -43,10 +45,8 @@ class ProjectController extends Controller
     {
         $data=$request->validated();
         $data['slug'] = Str::slug($data['title'], '-');
-        // $project = new Project();
-        // $project->fill($data);
-        // $project->save();
-        $project = Project::create($data); // ulteriore abbreviazione di quanto sopra
+        $project = Project::create($data); 
+        $project->technologies()->attach($data['technology_id']);
         return redirect()->route('admin.projects.index')->with('message', 'Il progetto ' . $project->title . ' è stato creato con successo');
     }
 
@@ -69,7 +69,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('project','technologies'));
     }
 
     /**
@@ -84,6 +85,7 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title'], '-'); //cosi scrivendo  viene aggiornato anche lo slug
         $project->update($data); 
+        $project->technologies()->attach($data['technology_id']);
         return redirect()->route('admin.projects.index', $project->slug)->with('message', 'Il progetto ' . $project->title . ' è stato modificato con successo');
     }
 
