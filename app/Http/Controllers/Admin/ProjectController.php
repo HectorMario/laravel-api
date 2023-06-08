@@ -85,7 +85,7 @@ class ProjectController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title'], '-'); //cosi scrivendo  viene aggiornato anche lo slug
         $project->update($data); 
-        $project->technologies()->attach($data['technology_id']);
+        $project->technologies()->sync($data['technology_id']);
         return redirect()->route('admin.projects.index', $project->slug)->with('message', 'Il progetto ' . $project->title . ' è stato modificato con successo');
     }
 

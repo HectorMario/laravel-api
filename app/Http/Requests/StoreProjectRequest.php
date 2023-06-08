@@ -27,7 +27,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'title' => ['required','min:3','max:150', Rule::unique('projects')->ignore($this->project)], //con ignore($this->project) non da errore se modifico solo content
             'content' => 'nullable|string',
-            'technology_id'=> ['nullable', 'exists:categories,id']
+            'technology_id'=> ['nullable', 'exists:project_technology']
 
         ];
     }
