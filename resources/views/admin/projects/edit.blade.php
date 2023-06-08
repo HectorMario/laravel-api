@@ -27,8 +27,14 @@
                 <p>select the technologies</p>
             <div class="btn-group" role="group" >
             @foreach ($technologies as $technology)
-            <input type="checkbox" class="btn-check" name="technology_id[]" value="{{$technology->id}}" id="{{$technology->name}}" autocomplete="off">
-            <label class="btn btn-outline-primary" for="{{$technology->name}}">{{$technology->name}}</label>
+            <input type="checkbox" class="btn-check" name="technology_id[]" value="{{$technology->id}}" id="{{$technology->name}}" autocomplete="off" 
+            @foreach($project->technologies as $technologyDefault)
+            @if($technologyDefault->name == $technology->name)
+                checked
+            @endif
+            @endforeach>
+            <label class="btn btn-outline-primary" for="{{$technology->name}}" >{{$technology->name}}</label>
+           
             @endforeach
             </div>
                 <div class="form-group">
