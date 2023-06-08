@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Technology;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class TechnologySeeder extends Seeder
 {
@@ -14,12 +16,12 @@ class TechnologySeeder extends Seeder
      */
     public function run()
     {
-        $categories = ['java script', 'typescript', 'Secondi', 'Dolce', 'Antipasti'];
-        foreach ($categories as $category_value) {
-            $new_category = new Type();
-            $new_category->name = $category_value;
-            $new_category->slug = Str::slug($category_value);
-            $new_category->save();
+        $categories = ['java script', 'typescript', 'php', 'phyton', 'java'];
+        foreach ($categories as $technology_value) {
+            $new_technology = new Technology();
+            $new_technology->name = $technology_value;
+            $new_technology->slug = Str::slug($technology_value);
+            $new_technology->save();
         }
     }
 }
