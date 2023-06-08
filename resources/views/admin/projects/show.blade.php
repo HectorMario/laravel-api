@@ -5,6 +5,11 @@
     <div class="text-end">
         {{ $project->slug }}
     </div>
+    <h2>technologies</h2>
+    @foreach ($project->technologies as $technology)
+
+        <p>{{$technology->name }}</p>
+    @endforeach
     <p class="mt-4">{{ $project->content }}</p>
     <div class="cta d-flex gap-3">
 
