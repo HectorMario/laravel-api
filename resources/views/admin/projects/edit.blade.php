@@ -7,7 +7,7 @@
         <h1 class="my-3">Modifica il tuo progetto {{ $project->title}}: </h1>
         <div class="">
 
-            <form action="{{ route('admin.projects.update', $project->slug) }}" method="POST">
+            <form action="{{ route('admin.projects.update', $project->slug) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <!-- serve per sovrascrivere il metodo post dato che il form supporta solo get e post -->
@@ -40,6 +40,12 @@
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ old('description', $project->description) }}</textarea>
+
+                </div>
+                <img src="{{asset('storage/'. $project->media_path)}}" alt="" width="200px">
+                <div class="form-group">
+                    <label for="image">Carica la tua imagine</label>
+                    <input type="file" name="media_path" id="image">
 
                 </div>
                 <div class="cta d-flex-gap-3">

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectReqeust;
 use App\Models\Project;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -84,10 +85,14 @@ class ProjectController extends Controller
     {
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title'], '-'); //cosi scrivendo  viene aggiornato anche lo slug
-        $project->update($data); 
+        if ($request->hasFile('media_path')) {
+            $path = Storage::disk('public')->put('projects_imgages', $request->media_path);
+            $data['media_path'] = $path;
+        }
         if($request->has('technology_id')){
             $project->technologies()->sync($data['technology_id']);
         }
+        $project->update($data); 
         return redirect()->route('admin.projects.index', $project->slug)->with('message', 'Il progetto ' . $project->title . ' è stato modificato con successo');
     }
 
