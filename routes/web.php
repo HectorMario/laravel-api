@@ -4,7 +4,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TechnologiesCrud;
 use App\Http\Controllers\Admin\TypeResource;
+use App\Models\Technology;
+use Mockery\Generator\Parameter;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     })->name('dashboard');
     Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
     Route::resource('types', TypeResource::class)->parameters(['types' => 'type:slug']);
+    Route::resource('technologies', TechnologiesCrud::class)->parameters(['technology'=> 'technology:slug']);
 });
 
 

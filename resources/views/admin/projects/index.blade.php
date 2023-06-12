@@ -14,6 +14,7 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Titolo</th>
+                <th scope="col">Tipologie</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -26,6 +27,11 @@
                     <td>{{ $project->title }}</td>
                     @else
                     <td>{{ $project->name }}</td>
+                    @endif
+                    @if($project->technologies)
+                    @foreach ($project->technologies as $technologie)
+                    <td>   {{$technologie->name}} </td>
+                    @endforeach
                     @endif
                     <td>{{ $project->slug }}</td>
                     <td class="d-flex gap-3">
