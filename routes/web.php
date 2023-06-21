@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TechnologiesCrud;
 use App\Http\Controllers\Admin\TypeResource;
+use App\Models\Project;
 use App\Models\Technology;
 use Mockery\Generator\Parameter;
 
@@ -33,6 +34,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('types', TypeResource::class)->parameters(['types' => 'type:slug']);
     Route::resource('technologies', TechnologiesCrud::class)->parameters(['technology'=> 'technology:slug']);
 });
+
 
 
 require __DIR__.'/auth.php';
